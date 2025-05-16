@@ -164,3 +164,63 @@ nav li:hover {
   margin-top: 0;
   font-weight: bold;
 }
+
+@media (min-width: 768px) {
+  html {
+    background-image: url('../../images/site/checkerboard.jpg');
+  }
+  body {
+    margin: 5% 10%;
+    padding: 1%;
+    background: white;
+    border: 5px solid #01B0D3;
+    border-radius: 10px;
+  }
+
+  nav li {
+    margin: 0 7%;
+  }
+
+  .delorean-container {
+    display: flex;
+    justify-content: left;
+    padding-left: 18%;
+    align-items: center;     
+    gap: 20px;               
+    flex-wrap: wrap;        
+    margin-top: 20px;
+  }
+
+  .delorean-info {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    background-color: rgba(255, 255, 255, 0.85);
+    padding: 8px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 190px;
+    z-index: 10;
+    text-align: left;
+  }
+
+  .upgrades-reviews-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  #upgrades-section {
+    order: 1;
+    flex: 1;
+  }
+
+  #reviews {
+    order: 2;
+    flex: 1;
+  }
+
+  #reviews li {
+    margin-bottom: 1rem;
+  }
+}
