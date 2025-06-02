@@ -14,8 +14,7 @@ body {
   font-family: "Roboto", sans-serif;
   font-weight: 400;
   font-style: normal;
-  font-variation-settings:
-    "wdth" 100;
+  font-variation-settings: "wdth" 100;
 }
 
 #hero {
@@ -139,15 +138,15 @@ nav li:hover {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 20px;
 }
 
 .upgrade-item {
-  width: 40%;
-  max-width: 40%;
+  width: 100%;
+  max-width: 200px;
   background-color: #01B0D3;
   border-radius: 5px;
   padding: 15px;
-  margin: 10px;
   text-align: center;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -184,9 +183,9 @@ nav li:hover {
     display: flex;
     justify-content: left;
     padding-left: 18%;
-    align-items: center;     
-    gap: 20px;               
-    flex-wrap: wrap;        
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
     margin-top: 20px;
   }
 
@@ -221,5 +220,138 @@ nav li:hover {
 
   #reviews li {
     margin-bottom: 1rem;
+  }
+
+  .upgrade-item {
+    width: 45%;
+    max-width: 250px;
+  }
+}
+
+#inv-detail-container {
+  padding: 2%;
+}
+
+.detail-container {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+.detail-container img {
+  width: 50%;
+  max-width: 300px;
+  object-fit: cover;
+}
+
+.vehicle-details {
+  width: 50%;
+  color: #000;
+  font-family: Arial, sans-serif;
+  margin-left: 5%;
+}
+
+.vehicle-details h3 {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.vehicle-details h2 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.vehicle-details p {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.vehicle-details p strong {
+  font-weight: bold;
+}
+
+.vehicle-details .price {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+/* Mobile responsiveness for detail view */
+@media (max-width: 767px) {
+  .detail-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .detail-container img {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .vehicle-details {
+    width: 100%;
+    padding-top: 20px;
+  }
+}
+
+#inv-display {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 10px;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+#inv-display li {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  background-color: #f0f0f0;
+  padding: 15px;
+  border-radius: 5px;
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+  transition: all 0.3s ease;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#inv-display li:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#inv-display .detail-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#inv-display img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+}
+
+#inv-display .vehicle-details {
+  padding: 10px 0;
+}
+
+/* Ensure at least 2 columns for 2+ items, max 3 columns */
+@media (min-width: 600px) {
+  #inv-display {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+@media (min-width: 1000px) {
+  #inv-display {
+    grid-template-columns: repeat(3, minmax(250px, 1fr));
   }
 }

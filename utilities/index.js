@@ -58,4 +58,31 @@ Util.buildClassificationGrid = async function(data){
   return grid
 }
 
-module.exports = Util
+/* ****************************************
+ * Middleware For Handling Errors
+ * Wrap other function in this for 
+ * General Error Handling
+ **************************************** */
+Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
+
+function buildDetailView(vehicle) {
+  return `
+    <div id="inv-detail-container">
+    <h2>${vehicle.inv_year} ${vehicle.inv_make} ${vehicle.inv_model}</h2>
+    <div class="detail-container">
+        <img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model}">
+        <div class="vehicle-details">
+            <h3>${vehicle.inv_make} ${vehicle.inv_model} Details</h3><br>
+            <p><strong>Price: $${Number(vehicle.inv_price).toLocaleString()}</strong></p><br>
+            <p><strong>Description:</strong> ${vehicle.inv_description}</p><br>
+            <p><strong>Color:</strong> ${vehicle.inv_color}</p><br>
+            <p><strong>Mileage:</strong> ${Number(vehicle.inv_miles).toLocaleString()} miles</p>
+        </div>
+    </div>
+  `;
+}
+
+module.exports = { 
+  ...Util,
+  buildDetailView
+};
