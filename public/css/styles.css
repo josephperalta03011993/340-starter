@@ -17,6 +17,7 @@ body {
   font-variation-settings: "wdth" 100;
 }
 
+/* Hero Section */
 #hero {
   text-align: left;
   font-family: Arial, sans-serif;
@@ -126,10 +127,20 @@ nav li {
   cursor: pointer;
 }
 
+nav a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.active {
+  text-decoration: underline;
+}
+
 nav li:hover {
   text-decoration: underline;
 }
 
+/* Upgrades section */
 .upgrades-section {
   justify-content: left;
 }
@@ -163,10 +174,36 @@ nav li:hover {
   font-weight: bold;
 }
 
+/* Reviews Section */
+#reviews {
+  background-color: #f9f9f9;
+  padding: 1rem;
+  border-radius: 8px;
+  font-family: Arial, sans-serif;
+}
+
+#reviews h2 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+#reviews ul {
+  padding-left: 1rem;
+  list-style-type: disc;
+}
+
+#reviews li {
+  margin-bottom: 1rem;
+  color: #333;
+  line-height: 1.4;
+}
+
+/* Media Queries */
 @media (min-width: 768px) {
   html {
     background-image: url('../../images/site/checkerboard.jpg');
   }
+
   body {
     margin: 5% 10%;
     padding: 1%;
@@ -190,16 +227,7 @@ nav li:hover {
   }
 
   .delorean-info {
-    position: absolute;
-    top: 5%;
     left: 5%;
-    background-color: rgba(255, 255, 255, 0.85);
-    padding: 8px;
-    border-radius: 10px;
-    width: 100%;
-    max-width: 190px;
-    z-index: 10;
-    text-align: left;
   }
 
   .upgrades-reviews-container {
@@ -228,6 +256,7 @@ nav li:hover {
   }
 }
 
+/* Inventory detail view */
 #inv-detail-container {
   padding: 2%;
 }
@@ -295,10 +324,10 @@ nav li:hover {
   }
 }
 
+/* Inventory Grid Display */
 #inv-display {
   list-style: none;
   padding-left: 0;
-  margin: 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 10px;
@@ -343,7 +372,6 @@ nav li:hover {
   padding: 10px 0;
 }
 
-/* Ensure at least 2 columns for 2+ items, max 3 columns */
 @media (min-width: 600px) {
   #inv-display {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));

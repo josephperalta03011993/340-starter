@@ -4,24 +4,21 @@ const Util = {}
 /* ************************
  * Constructs the nav HTML unordered list
  ************************** */
-Util.getNav = async function (req, res, next) {
+Util.getNav = async function (req = { originalUrl: "/"}) {
+  const currentPath = req.originalUrl; // e.g., "/", "/inv/type/2"
   let data = await invModel.getClassifications()
-  console.log(data);
-  let list = "<ul>"
-  list += '<li><a href="/" title="Home page">Home</a></li>'
+
+  let list = '<ul>'
+  list += `<li><a href="/" title="Home page" class="${currentPath === '/' ? 'active' : ''}">Home</a></li>`
+
   data.rows.forEach((row) => {
-    list += "<li>"
-    list +=
-      '<a href="/inv/type/' +
-      row.classification_id +
-      '" title="See our inventory of ' +
-      row.classification_name +
-      ' vehicles">' +
-      row.classification_name +
-      "</a>"
-    list += "</li>"
+    const path = `/inv/type/${row.classification_id}`
+    const isActive = currentPath === path ? 'active' : ''
+
+    list += `<li><a href="${path}" title="See our inventory of ${row.classification_name} vehicles" class="${isActive}">${row.classification_name}</a></li>`
   })
-  list += "</ul>"
+
+  list += '</ul>'
   return list
 }
 
