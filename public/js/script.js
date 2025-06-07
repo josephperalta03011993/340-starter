@@ -9,3 +9,11 @@ const navItems = document.querySelectorAll('#navList li');
       item.classList.add('active');
     });
   });
+
+// Toggle password visibility for Login View
+const togglePassword = document.getElementById("togglePassword");
+const passwordField = document.getElementById("userPassword");
+
+togglePassword.addEventListener("change", function () {
+  passwordField.type = this.checked ? "text" : "password";
+});

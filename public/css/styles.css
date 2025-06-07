@@ -383,3 +383,88 @@ nav li:hover {
     grid-template-columns: repeat(3, minmax(250px, 1fr));
   }
 }
+
+/* Container styling */
+.login-container {
+  max-width: 400px;
+  margin: .2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Form layout */
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Labels */
+.login-form label {
+  font-weight: 600;
+  margin: 0.5rem 0 0.2rem;
+}
+
+/* Inputs */
+.login-form input[type="email"],
+.login-form input[type="password"],
+.login-form input[type="text"] {
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  margin-bottom: .2rem;
+  transition: border-color 0.3s ease;
+}
+
+.login-form input[type="email"]:focus,
+.login-form input[type="password"]:focus {
+  border-color: #007BFF;
+  outline: none;
+}
+
+/* Password requirements hint */
+.login-form div {
+  font-size: 0.85rem;
+  color: #555;
+  margin-bottom: .2rem;
+}
+
+/* Submit button */
+#submitBtn {
+  background-color: #007BFF;
+  color: #fff;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#submitBtn:hover {
+  background-color: #0056b3;
+}
+
+/* Sign-up link */
+.login-form p {
+  margin-top: .2rem;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.login-form a {
+  color: #007BFF;
+  text-decoration: none;
+}
+
+.login-form a:hover {
+  text-decoration: underline;
+}
+
+.show-password {
+  color: #333;
+}
+

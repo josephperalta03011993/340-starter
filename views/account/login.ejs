@@ -1,0 +1,27 @@
+<h1><%= title || "Login" %></h1>
+
+<%- messages() %>
+
+<div class="login-container">
+    <form action="/account/login" method="POST" class="login-form">
+        <label for="userEmail">Email Address:</label>
+        <input type="email" id="userEmail" class="userEmail" name="account_email" required value="<%= locals.account_email %>"><br>
+        
+        <label for="userPassword">Password</label>
+        <input type="password" class="userPassword" id="userPassword" name="account_password" required
+        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+
+        <!-- Show Password Toggle -->
+        <div class="show-password">
+            <input type="checkbox" id="togglePassword">
+            <label for="togglePassword">Show Password</label>
+        </div>
+        <br> 
+        
+        <div>There must be at least 12 characters, one must be a number, one must be a lowercase letter, one must be a capital letter, and one must be a non-alphanumeric character.</div>
+
+        <br>
+        <input type="submit" value="Login" id="submitBtn">
+        <p>No account? <a href="/account/registration">Sign-up</a></p>
+    </form>
+</div>
