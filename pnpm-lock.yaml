@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      bcryptjs:
+        specifier: ^3.0.2
+        version: 3.0.2
       body-parser:
         specifier: ^2.2.0
         version: 2.2.0
@@ -38,6 +41,9 @@ importers:
       express-session:
         specifier: ^1.18.1
         version: 1.18.1
+      express-validator:
+        specifier: ^7.2.1
+        version: 7.2.1
       pg:
         specifier: ^8.8.0
         version: 8.15.6
@@ -68,6 +74,10 @@ packages:
 
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
+
+  bcryptjs@3.0.2:
+    resolution: {integrity: sha512-k38b3XOZKv60C4E2hVsXTolJWfkGRMbILBIe2IBITXciy5bOsTKot5kDrf3ZfufQtQOUN5mXceUEpU1rTl9Uog==}
+    hasBin: true
 
   binary-extensions@2.3.0:
     resolution: {integrity: sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==}
@@ -233,6 +243,10 @@ packages:
     resolution: {integrity: sha512-a5mtTqEaZvBCL9A9aqkrtfz+3SMDhOVUnjafjo+s7A9Txkq+SVX2DLvSp1Zrv4uCXa3lMSK3viWnh9Gg07PBUA==}
     engines: {node: '>= 0.8.0'}
 
+  express-validator@7.2.1:
+    resolution: {integrity: sha512-CjNE6aakfpuwGaHQZ3m8ltCG2Qvivd7RHtVMS/6nVxOM7xVGqr4bhflsm4+N5FP5zI7Zxp+Hae+9RE+o8e3ZOQ==}
+    engines: {node: '>= 8.0.0'}
+
   express@4.21.2:
     resolution: {integrity: sha512-28HqgMZAmih1Czt9ny7qr6ek2qddF4FclbMzwhCREB6OFfH+rXAnuNCwo1/wFvrtbgsQDb4kSbX9de9lFbrXnA==}
     engines: {node: '>= 0.10.0'}
@@ -338,6 +352,9 @@ packages:
     resolution: {integrity: sha512-2P4SQ0HrLQ+fw6llpLnOaGAvN2Zu6778SJMrCUwns4fOoG9ayrTiZk3VV8sCPkVZF8ab0zksVpS8FDY5pRCNBA==}
     engines: {node: '>=10'}
     hasBin: true
+
+  lodash@4.17.21:
+    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
 
   math-intrinsics@1.1.0:
     resolution: {integrity: sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g==}
@@ -606,6 +623,10 @@ packages:
     resolution: {integrity: sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==}
     engines: {node: '>= 0.4.0'}
 
+  validator@13.12.0:
+    resolution: {integrity: sha512-c1Q0mCiPlgdTVVVIJIrBuxNicYE+t/7oKeI9MWLj3fh/uq2Pxh/3eeWbVZ4OcGW1TUf53At0njHw5SMdA3tmMg==}
+    engines: {node: '>= 0.10'}
+
   vary@1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
@@ -635,6 +656,8 @@ snapshots:
   async@3.2.6: {}
 
   balanced-match@1.0.2: {}
+
+  bcryptjs@3.0.2: {}
 
   binary-extensions@2.3.0: {}
 
@@ -743,6 +766,7 @@ snapshots:
 
   'cse340@file:':
     dependencies:
+      body-parser: 2.2.0
       connect-flash: 0.1.1
       connect-pg-simple: 10.0.0
       dotenv: 16.5.0
@@ -751,6 +775,7 @@ snapshots:
       express-ejs-layouts: 2.5.1
       express-messages: 1.0.1
       express-session: 1.18.1
+      express-validator: 7.2.1
       pg: 8.15.6
     transitivePeerDependencies:
       - pg-native
@@ -816,6 +841,11 @@ snapshots:
       uid-safe: 2.1.5
     transitivePeerDependencies:
       - supports-color
+
+  express-validator@7.2.1:
+    dependencies:
+      lodash: 4.17.21
+      validator: 13.12.0
 
   express@4.21.2:
     dependencies:
@@ -956,6 +986,8 @@ snapshots:
       chalk: 4.1.2
       filelist: 1.0.4
       minimatch: 3.1.2
+
+  lodash@4.17.21: {}
 
   math-intrinsics@1.1.0: {}
 
@@ -1213,6 +1245,8 @@ snapshots:
   unpipe@1.0.0: {}
 
   utils-merge@1.0.1: {}
+
+  validator@13.12.0: {}
 
   vary@1.1.2: {}
 
