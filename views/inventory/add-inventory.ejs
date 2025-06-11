@@ -1,0 +1,68 @@
+<h1><%= title || "Add New Inventory Item" %></h1>
+
+<%- messages() %>
+
+<% if (errors) { %>
+    <ul class="notice">
+    <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+    <% }) %>
+    </ul>
+<% } %>
+
+<div class="login-container">
+    <p><i>ALL FIELDS ARE REQUIRED.</i></p>
+    <form action="/inv/add-inventory" method="POST" class="login-form" novalidate>
+        <label for="classification_id">Classification:</label>
+        <%- classificationList %>
+
+        <label for="inv_make">Make:</label>
+        <input type="text" name="inv_make" id="inv_make" required 
+               pattern="[A-Za-z\s]+" title="Make must contain only alphabetic characters and spaces."
+               value="<%= locals.inv_make || '' %>">
+
+        <label for="inv_model">Model:</label>
+        <input type="text" name="inv_model" id="inv_model" required 
+               pattern="[A-Za-z0-9\s]+" title="Model must contain only alphanumeric characters and spaces."
+               value="<%= locals.inv_model || '' %>">
+
+        <label for="inv_description">Description:</label>
+        <textarea name="inv_description" id="inv_description" required 
+                  title="Description is required."><%= locals.inv_description || '' %></textarea>
+
+        <label for="inv_image">Image Path:</label>
+        <input type="text" name="inv_image" id="inv_image" required 
+               pattern="^(\/images\/vehicles\/no-image.png|\/images\/vehicles\/[a-zA-Z0-9-]+\.(jpg|png|jpeg))$"
+               title="Enter a valid image path (e.g., /images/vehicles/no-image.png or a custom path)."
+               value="<%= locals.inv_image || '/images/vehicles/no-image.png' %>">
+
+        <label for="inv_thumbnail">Thumbnail Path:</label>
+        <input type="text" name="inv_thumbnail" id="inv_thumbnail" required 
+               pattern="^(\/images\/vehicles\/no-image-tn.png|\/images\/vehicles\/[a-zA-Z0-9-]+\.(jpg|png|jpeg))$"
+               title="Enter a valid thumbnail path (e.g., /images/vehicles/no-image-tn.png or a custom path)."
+               value="<%= locals.inv_thumbnail || '/images/vehicles/no-image-tn.png' %>">
+
+        <label for="inv_price">Price:</label>
+        <input type="number" name="inv_price" id="inv_price" required 
+               min="0" step="0.01" title="Price must be a positive number."
+               value="<%= locals.inv_price || '' %>">
+
+        <label for="inv_year">Year:</label>
+        <input type="number" name="inv_year" id="inv_year" required 
+               min="1900" max="2025" title="Year must be between 1900 and 2025."
+               value="<%= locals.inv_year || '' %>">
+
+        <label for="inv_miles">Miles:</label>
+        <input type="number" name="inv_miles" id="inv_miles" required 
+               min="0" title="Miles must be a positive number."
+               value="<%= locals.inv_miles || '' %>">
+
+        <label for="inv_color">Color:</label>
+        <input type="text" name="inv_color" id="inv_color" required 
+               pattern="[A-Za-z\s]+" title="Color must contain only alphabetic characters and spaces."
+               value="<%= locals.inv_color || '' %>">
+
+        <br>
+        <input type="submit" value="Add Inventory" id="submitBtn">
+    </form>
+</div>

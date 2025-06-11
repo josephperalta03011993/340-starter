@@ -115,4 +115,87 @@ invCont.addClassification = async (req, res) => {
   }
 };
 
+/* ***************************
+ *  Build add inventory view
+ * ************************** */
+invCont.buildAddInventory = async function (req, res) {
+  try {
+    let nav = await utilities.getNav(req);
+    let classificationList = await utilities.buildClassificationList();
+    res.render("inventory/add-inventory", {
+      title: "Add New Inventory",
+      nav,
+      classificationList,
+      errors: null,
+      notice: req.flash("notice"),
+      classification_id: "",
+      inv_make: "",
+      inv_model: "",
+      inv_year: "",
+      inv_description: "",
+      inv_image: "",
+      inv_thumbnail: "",
+      inv_price: "",
+      inv_miles: "",
+      inv_color: ""
+    });
+  } catch (error) {
+    req.flash("error", error.toString());
+    res.redirect("/inv");
+  }
+};
+
+// Handle form POST
+invCont.addInventory = async function (req, res) {
+  let nav = await utilities.getNav(req);
+  let classificationList = await utilities.buildClassificationList(req.body.classification_id);
+  const {
+    classification_id,
+    inv_make,
+    inv_model,
+    inv_year,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_miles,
+    inv_color
+  } = req.body;
+
+  const result = await invModel.addInventoryItem(
+    classification_id,
+    inv_make,
+    inv_model,
+    inv_year,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_miles,
+    inv_color
+  );
+
+  if (result) {
+    req.flash("notice", "Vehicle successfully added!");
+    nav = await utilities.getNav(req);
+    const classificationList = await utilities.buildClassificationList();
+    res.status(201).render("./inventory/management", {
+      title: "Inventory Management",
+      nav,
+      classificationList,
+      notice: req.flash("notice")
+    });
+  } else {
+    req.flash("notice", "Failed to add vehicle.");
+    res.status(500).render("./inventory/add-inventory", {
+      title: "Add New Inventory",
+      nav,
+      classificationList,
+      errors: null,
+      notice: req.flash("notice"),
+      ...req.body
+    });
+  }
+}
+
 module.exports = invCont;

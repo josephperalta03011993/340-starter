@@ -150,4 +150,37 @@ validate.checkClassificationData = async (req, res, next) => {
   next();
 };
 
+validate.inventoryRules = () => {
+  return [
+    body("classification_id").notEmpty().withMessage("Please choose a classification."),
+    body("inv_make").trim().notEmpty().withMessage("Make is required."),
+    body("inv_model").trim().notEmpty().withMessage("Model is required."),
+    body("inv_year").isInt({ min: 1886 }).withMessage("Enter a valid year."),
+    body("inv_description").trim().notEmpty().withMessage("Description is required."),
+    body("inv_image").trim().notEmpty().withMessage("Image path is required."),
+    body("inv_thumbnail").trim().notEmpty().withMessage("Thumbnail path is required."),
+    body("inv_price").isFloat({ min: 0 }).withMessage("Price must be a positive number."),
+    body("inv_miles").isInt({ min: 0 }).withMessage("Miles must be a positive number."),
+    body("inv_color").trim().notEmpty().withMessage("Color is required.")
+  ]
+}
+
+validate.checkInventoryData = async (req, res, next) => {
+  const errors = validationResult(req)
+  const classificationList = await utilities.buildClassificationList(req.body.classification_id)
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    res.render("inventory/add-inventory", {
+      title: "Add New Inventory",
+      nav,
+      classificationList,
+      errors,
+      notice: req.flash("notice"),
+      ...req.body
+    })
+    return
+  }
+  next()
+}
+
 module.exports = validate

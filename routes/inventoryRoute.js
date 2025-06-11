@@ -26,4 +26,16 @@ router.post(
     validate.checkClassificationData,
     utilities.handleErrors(invController.addClassification));
 
+router.get(
+    "/add-inventory",
+    utilities.handleErrors(invController.buildAddInventory));
+
+// Handle form submission for adding a new inventory item
+router.post(
+    "/add-inventory",
+    validate.inventoryRules(),
+    validate.checkInventoryData,
+    utilities.handleErrors(invController.addInventory)
+    );
+
 module.exports = router;

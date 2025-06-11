@@ -420,7 +420,10 @@ nav a.active {
 /* Inputs */
 .login-form input[type="email"],
 .login-form input[type="password"],
-.login-form input[type="text"] {
+.login-form input[type="text"],
+.login-form input[type="number"],
+.login-form textarea,
+.login-form select {
   padding: 0.6rem;
   border: 1px solid #ccc;
   border-radius: 6px;
