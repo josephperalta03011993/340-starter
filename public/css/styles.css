@@ -434,7 +434,7 @@ nav a.active {
 
 .login-form input[type="email"]:focus,
 .login-form input[type="password"]:focus {
-  border-color: #007BFF;
+  border-color: #003976;
   outline: none;
 }
 
@@ -447,7 +447,7 @@ nav a.active {
 
 /* Submit button */
 #submitBtn {
-  background-color: #007BFF;
+  background-color: #003976;
   color: #fff;
   padding: 0.75rem;
   font-size: 1rem;
@@ -469,7 +469,7 @@ nav a.active {
 }
 
 .login-form a {
-  color: #007BFF;
+  color: #003976;
   text-decoration: none;
 }
 
