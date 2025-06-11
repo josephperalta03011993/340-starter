@@ -108,36 +108,41 @@ body {
 /* Nav styles */
 nav {
   background-color: #1a1a2e;
-  padding: 10px 0;
-  font-family: Arial, sans-serif;
+  font-family: "Roboto", sans-serif;
+  width: 100%;
 }
 
 nav ul {
-  list-style: none;
   display: flex;
   justify-content: center;
-  padding: 0;
+  align-items: center;
+  flex-wrap: wrap; /* Allows wrapping on small mobile screens */
+  gap: 0.1rem;     /* Sets a small gap for the mobile view */
+  list-style: none;
+  padding: 0.75rem 1rem;
   margin: 0;
-}
-
-nav li {
-  margin: 0 8px;
-  color: #fff;
-  font-weight: 600;
-  cursor: pointer;
 }
 
 nav a {
   color: #fff;
   text-decoration: none;
+  font-weight: 600;
+  padding: 0.5rem 0.7rem; /* Vertical and horizontal padding */
+  border-radius: 5px;
+  white-space: nowrap; /* Prevents link text from breaking into two lines */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.active {
-  text-decoration: underline;
+nav a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #01B0D3;
 }
 
-nav li:hover {
-  text-decoration: underline;
+/* Single, clear style for the active link */
+nav a.active {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  text-decoration: none; /* Removes any potential underline */
 }
 
 /* Upgrades section */
@@ -212,8 +217,13 @@ nav li:hover {
     border-radius: 10px;
   }
 
+  nav ul {
+    flex-wrap: nowrap; 
+    gap: 0.1rem;         
+  }
+
   nav li {
-    margin: 0 7%;
+    margin: 0 3%;
   }
 
   .delorean-container {

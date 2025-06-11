@@ -1,5 +1,6 @@
 const invModel = require("../models/inventory-model")
 const utilities = require("../utilities/")
+const { classificationRules } = require("../utilities/account-validation")
 
 const invCont = {}
 
@@ -45,6 +46,72 @@ invCont.triggerError = async function (req, res, next) {
   } catch (error) {
     // Pass the error to the next middleware
     next(error);
+  }
+};
+
+invCont.buildManagement = async (req, res) => {
+  try {
+    const nav = await utilities.getNav(req);
+    res.render("inventory/management", { 
+      title: "Inventory Management",
+      nav, 
+      errors: null, 
+      notice: req.flash("notice")
+    });
+  } catch (error) {
+    req.flash("error", "Failed to load management view.");
+    res.redirect("/");
+  }
+};
+
+invCont.buildAddClassification = async (req, res) => {
+  try {
+    const nav = await utilities.getNav(req);
+    res.render("inventory/add-classification", {
+      title: "Add Classification",
+      nav,
+      errors: null,
+      classification_name: "",
+      notice: req.flash("notice")
+    });
+  } catch (error) {
+    req.flash("error", "Failed to load add classification view.");
+    res.redirect("/inv");
+  }
+}
+
+invCont.addClassification = async (req, res) => {
+  try {
+    const { classification_name } = req.body;
+    const result = await invModel.addClassification(classification_name);
+    const nav = await utilities.getNav(req);
+    if (result) { 
+      req.flash("success", "Classification added successfully!");
+      res.render("inventory/management", { 
+        title: "Inventory Management", 
+        nav, 
+        errors: null, 
+        notice: req.flash("notice") 
+      });
+    } else {
+      req.flash("error", "Failed to add classification.");
+      res.render("inventory/add-classification", { 
+        title: "Add Classification", 
+        classification_name,
+        nav,
+        errors: [{ msg: "Database insertion failed." }]
+      });
+    }
+  } catch (error) {
+    const nav = await utilities.getNav(req);
+    req.flash("error", "Server error while adding classification.");
+    res.render("inventory/add-classification", { 
+      title: "Add Classification", 
+      classification_name: req.body.classification_name,
+      nav,
+      notice: req.flash("notice"),
+      errors: [{ msg: "An unexpected error occurred." }]
+    });
   }
 };
 
