@@ -176,7 +176,7 @@ invCont.addInventory = async function (req, res) {
   );
 
   if (result) {
-    req.flash("notice", "Vehicle successfully added!");
+    req.flash("success", "Vehicle successfully added!");
     nav = await utilities.getNav(req);
     const classificationList = await utilities.buildClassificationList();
     res.status(201).render("./inventory/management", {
