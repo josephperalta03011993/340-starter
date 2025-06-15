@@ -538,3 +538,11 @@ ul {
 .success {
   color: darkgreen;
 }
+
+#submitBtn:disabled {
+  background-color: #e0e0e0;   /* Much lighter gray */
+  color: #333333;              /* Darker text for contrast */
+  border: 2px solid #999999;   /* Slightly thicker and darker border */
+  cursor: not-allowed;
+  opacity: 1;                  /* Full opacity for clarity */
+}

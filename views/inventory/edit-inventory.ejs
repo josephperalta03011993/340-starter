@@ -13,8 +13,8 @@
 <div class="login-container">
   <p><i>All fields are required.</i></p>
 
-  <form action="/inv/update" method="post" class="login-form">
-    <label for="classification_id">Classification</label>
+  <form action="/inv/update" method="post" class="login-form" id="updateForm">
+    <!-- <label for="classification_id">Classification</label> -->
     <%- classificationSelect %>
 
     <label for="inv_make">Make</label>
@@ -45,7 +45,7 @@
     <input type="text" id="inv_color" name="inv_color" required value="<%= inv_color %>">
 
     <br>
-    <input type="submit" value="Update Vehicle" id="submitBtn">
+    <input type="submit" value="Update Vehicle" id="submitBtn" disabled>
     <!-- Hidden input to store the ID of the vehicle -->
     <input type="hidden" name="inv_id"
         <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
@@ -54,3 +54,5 @@
     <p><a href="/inv">Back to Management</a></p>
   </form>
 </div>
+
+<script src="../../js/inv-update.js"></script>
