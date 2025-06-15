@@ -481,3 +481,60 @@ nav a.active {
   color: #333;
 }
 
+/* Style for the classification dropdown */
+#classification_id {
+  padding: 8px 12px;
+  font-size: 1rem;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  width: 250px;
+}
+
+/* Style the inventory table */
+#inventoryDisplay {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  font-family: Arial, sans-serif;
+  font-size: 0.95rem;
+}
+
+/* Table headers */
+#inventoryDisplay thead th {
+  background-color: #f4f4f4;
+  color: #333;
+  text-align: left;
+  padding: 10px;
+  border-bottom: 2px solid #ccc;
+}
+
+/* Table rows */
+#inventoryDisplay tbody td {
+  padding: 10px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* Add hover effect */
+#inventoryDisplay tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* Modify/Delete link styles */
+#inventoryDisplay a {
+  text-decoration: none;
+  color: #003976;
+}
+
+#inventoryDisplay a:hover {
+  text-decoration: underline;
+}
+
+ul {
+  list-style: none;
+}
+
+.success {
+  color: darkgreen;
+}
