@@ -1,0 +1,13 @@
+<h1><%= title || "Login" %></h1>
+
+<%- messages() %>
+
+<% if (errors && errors.length > 0) { %>
+    <ul class="notice">
+      <% errors.forEach(error => { %>
+        <li><%= error %></li>
+      <% }) %>
+    </ul>
+<% } %>
+
+<h1>You're logged in</h1>
