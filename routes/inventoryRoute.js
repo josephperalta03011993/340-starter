@@ -1,71 +1,81 @@
-// Needed Resources 
-const express = require("express")
-const router = new express.Router() 
-const invController = require("../controllers/invController")
-const utilities = require("../utilities")
-const validate = require("../utilities/account-validation")
+// Needed Resources
+const express = require("express");
+const router = new express.Router();
+const invController = require("../controllers/invController");
+const utilities = require("../utilities");
+const validate = require("../utilities/account-validation");
 
-// Route to build inventory by classification view
+// Route to build inventory by classification view (public)
 router.get("/type/:classificationId", invController.buildByClassificationId);
 
-// Deliver vehicle detail view by inventoryId
-router.get('/detail/:inventoryId', invController.buildById);
+// Deliver vehicle detail view by inventoryId (public)
+router.get("/detail/:inventoryId", invController.buildById);
 
-router.get('/error-link', invController.triggerError);
+// Error link route (public, assuming for testing)
+router.get("/error-link", invController.triggerError);
 
-router.get('/', invController.buildManagement);
+// Management view (admin-restricted)
+router.get("/", utilities.restrictToEmployeeOrAdmin, invController.buildManagement);
 
-// Add classification routes
+// Add classification routes (admin-restricted)
 router.get(
-    "/add-classification", 
-    utilities.handleErrors(invController.buildAddClassification));
-
+  "/add-classification",
+  utilities.restrictToEmployeeOrAdmin,
+  utilities.handleErrors(invController.buildAddClassification)
+);
 router.post(
-    "/add-classification", 
-    validate.classificationRules(), 
-    validate.checkClassificationData,
-    utilities.handleErrors(invController.addClassification));
-
-router.get(
-    "/add-inventory",
-    utilities.handleErrors(invController.buildAddInventory));
-
-// Handle form submission for adding a new inventory item
-router.post(
-    "/add-inventory",
-    validate.inventoryRules(),
-    validate.checkInventoryData,
-    utilities.handleErrors(invController.addInventory)
-    );
-
-router.get(
-    "/getInventory/:classification_id",
-    utilities.handleErrors(invController.getInventoryJSON)
+  "/add-classification",
+  utilities.restrictToEmployeeOrAdmin,
+  validate.classificationRules(),
+  validate.checkClassificationData,
+  utilities.handleErrors(invController.addClassification)
 );
 
-// Route to present the edit view for a specific inventory item
+// Add inventory routes (admin-restricted)
 router.get(
-    "/edit/:inventory_id",
-    utilities.handleErrors(invController.editInventoryView)
+  "/add-inventory",
+  utilities.restrictToEmployeeOrAdmin,
+  utilities.handleErrors(invController.buildAddInventory)
 );
-
 router.post(
-    "/update/", 
-    validate.inventoryRules(),
-    validate.checkUpdateData,
-    utilities.handleErrors(invController.updateInventory)
+  "/add-inventory",
+  utilities.restrictToEmployeeOrAdmin,
+  validate.inventoryRules(),
+  validate.checkInventoryData,
+  utilities.handleErrors(invController.addInventory)
 );
 
-// view
+// Get inventory JSON (admin-restricted, assuming management-related)
 router.get(
-    "/delete/:inventory_id",
-    utilities.handleErrors(invController.deleteInventoryView)
+  "/getInventory/:classification_id",
+  utilities.restrictToEmployeeOrAdmin,
+  utilities.handleErrors(invController.getInventoryJSON)
 );
 
-// carry out delete
+// Edit inventory routes (admin-restricted)
+router.get(
+  "/edit/:inventory_id",
+  utilities.restrictToEmployeeOrAdmin,
+  utilities.handleErrors(invController.editInventoryView)
+);
 router.post(
-    "/delete",
-    utilities.handleErrors(invController.deleteInventory)
+  "/update/",
+  utilities.restrictToEmployeeOrAdmin,
+  validate.inventoryRules(),
+  validate.checkUpdateData,
+  utilities.handleErrors(invController.updateInventory)
+);
+
+// Delete inventory routes (admin-restricted)
+router.get(
+  "/delete/:inventory_id",
+  utilities.restrictToEmployeeOrAdmin,
+  utilities.handleErrors(invController.deleteInventoryView)
+);
+router.post(
+  "/delete",
+  utilities.restrictToEmployeeOrAdmin,
+  utilities.handleErrors(invController.deleteInventory)
 );
 
 module.exports = router;

@@ -546,3 +546,10 @@ ul {
   cursor: not-allowed;
   opacity: 1;                  /* Full opacity for clarity */
 }
+
+.form-group { margin-bottom: 15px; }
+.form-group label { display: block; margin-bottom: 5px; }
+.form-group input { width: 100%; max-width: 300px; padding: 5px; }
+.button { padding: 8px 15px; background-color: #483d8b; color: white; border: none; cursor: pointer; }
+.hint { font-size: 0.9em; color: #666; }
+.notice { color: #d32f2f; list-style-type: none; padding: 0; }
