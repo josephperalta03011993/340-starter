@@ -276,4 +276,19 @@ validate.passwordRules = () => {
   ];
 };
 
+/* ******************************
+ * Review Validation Rules
+ * ***************************** */
+validate.reviewRules = () => {
+  return [
+    body("review_rating")
+      .isInt({ min: 1, max: 5 })
+      .withMessage("Rating must be between 1 and 5"),
+    body("review_comment")
+      .trim()
+      .notEmpty()
+      .withMessage("Comment is required")
+  ];
+};
+
 module.exports = validate;

@@ -1,6 +1,7 @@
 const invModel = require("../models/inventory-model")
 const utilities = require("../utilities/")
 const { classificationRules } = require("../utilities/account-validation")
+const {body, validationResult} = require("express-validator")
 
 const invCont = {}
 
@@ -47,23 +48,31 @@ invCont.buildByClassificationId = async function (req, res, next) {
   }
 }
 
+/* ***************************
+ *  Build vehicle detail view
+ * ************************** */
 invCont.buildById = async function (req, res, next) {
   try {
-      const invId = req.params.inventoryId;
-      const data = await invModel.getInventoryById(invId);
-      if (!data) {
-          return next(); // Trigger 404 if no data
-      }
-      const html = utilities.buildDetailView(data);
-      res.render('./inventory/detail', { 
-          title: `${data.inv_make} ${data.inv_model}`,
-          nav: await utilities.getNav(req),
-          html 
-      });
+    const invId = parseInt(req.params.inventoryId);
+    const data = await invModel.getInventoryById(invId);
+    if (!data) {
+      return next(); // Trigger 404 if no data
+    }
+    const reviews = await invModel.getReviewsByInventoryId(invId);
+    const html = utilities.buildDetailView(data, reviews);
+    res.render('./inventory/detail', { 
+      title: `${data.inv_make} ${data.inv_model}`,
+      nav: await utilities.getNav(req),
+      html,
+      reviews,
+      inv_id: invId,
+      isLoggedIn: !!res.locals.accountData // Pass login status for review link
+    });
   } catch (error) {
-      next(error); // Pass to error handler
+    console.error("Error in buildById:", error);
+    next(error); // Pass to error handler
   }
-}
+};
 
 /* Intentional Error Trigger */
 invCont.triggerError = async function (req, res, next) {
@@ -399,5 +408,87 @@ invCont.deleteInventory = async function (req, res, next) {
     })
   }
 }
+
+/* ***************************
+ *  Build review submission view
+ * ************************** */
+invCont.buildAddReview = async function (req, res, next) {
+  try {
+    const inv_id = parseInt(req.params.inventoryId);
+    const nav = await utilities.getNav(req);
+    const vehicle = await invModel.getInventoryById(inv_id);
+    if (!vehicle) {
+      req.flash("notice", "Vehicle not found.");
+      return res.redirect("/inv");
+    }
+    res.render("inventory/add-review", {
+      title: `Review ${vehicle.inv_make} ${vehicle.inv_model}`,
+      nav,
+      vehicle, 
+      inv_id,
+      errors: null,
+      notice: req.flash("notice"),
+      review_rating: "",
+      review_comment: ""
+    });
+  } catch (error) {
+    req.flash("error", "Failed to load review form.");
+    res.redirect("/inv");
+  }
+};
+
+/* ***************************
+ *  Process review submission
+ * ************************** */
+invCont.addReview = async function (req, res, next) {
+  console.log("addReview: Received POST request", req.body);
+  const errors = validationResult(req);
+  const { inv_id, review_rating, review_comment } = req.body;
+  const nav = await utilities.getNav(req);
+  const vehicle = await invModel.getInventoryById(inv_id);
+
+  if (!errors.isEmpty()) {
+    console.log("addReview: Validation errors", errors.array());
+    return res.render("inventory/add-review", {
+      title: `Review ${vehicle.inv_make} ${vehicle.inv_model}`,
+      nav,
+      vehicle,
+      inv_id,
+      errors: errors.array(),
+      notice: req.flash("notice"),
+      review_rating,
+      review_comment
+    });
+  }
+
+  const account_id = res.locals.accountData?.account_id;
+  if (!account_id) {
+    console.log("addReview: No account_id, redirecting to login");
+    req.flash("notice", "Please log in to submit a review.");
+    return res.redirect("/account/login");
+  }
+
+  console.log("addReview: Calling invModel.addReview with", { inv_id, account_id, review_rating, review_comment });
+  const result = await invModel.addReview(parseInt(inv_id), parseInt(account_id), parseInt(review_rating), review_comment);
+  console.log("addReview: Model result", result);
+
+  if (result) {
+    console.log("addReview: Review added successfully, redirecting");
+    req.flash("success", "Review submitted successfully!");
+    return res.redirect(`/inv/detail/${inv_id}`);
+  } else {
+    console.log("addReview: Failed to add review, rendering form with error");
+    req.flash("error", "Failed to submit review.");
+    return res.render("inventory/add-review", {
+      title: `Review ${vehicle.inv_make} ${vehicle.inv_model}`,
+      nav,
+      vehicle,
+      inv_id,
+      errors: [{ msg: "Database error occurred." }],
+      review_rating,
+      review_comment
+    });
+  }
+};
 
 module.exports = invCont;

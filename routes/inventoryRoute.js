@@ -78,4 +78,18 @@ router.post(
   utilities.handleErrors(invController.deleteInventory)
 );
 
+// Route for review form
+router.get("/review/:inventoryId", 
+  utilities.checkLogin,
+  utilities.handleErrors(invController.buildAddReview)
+);
+
+// Route for review submission
+router.post(
+  "/review/:inventoryId",
+  utilities.checkLogin,
+  validate.reviewRules(),
+  utilities.handleErrors(invController.addReview)
+);
+
 module.exports = router;

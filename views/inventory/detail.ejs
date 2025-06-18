@@ -1,1 +1,32 @@
-<%- html %>
+<main id="detail-container">
+  <%- html %>
+  <section id="reviews-section">
+    <h2>Customer Reviews</h2>
+    <% if (isLoggedIn) { %>
+      <p><a href="/inv/review/<%= inv_id %>">Write a Review</a></p>
+    <% } else { %>
+      <p><a href="/account/login">Log in to write a review</a></p>
+    <% } %>
+    <% if (reviews && reviews.length > 0) { %>
+        <ul class="review-list">
+            <% reviews.forEach(review => { %>
+              <li class="review-item">
+                <p>
+                  <strong><%= review.account_firstname %> <%= review.account_lastname.charAt(0) %>.</strong>
+                  rated this vehicle:
+                  <span class="star-display">
+                    <% for (let i = 1; i <= 5; i++) { %>
+                      <span class="<%= i <= review.review_rating ? 'star filled' : 'star' %>">★</span>
+                    <% } %>
+                  </span>
+                </p>
+                <p><%= review.review_comment %></p>
+                <p><em>Posted on <%= new Date(review.review_date).toLocaleDateString() %></em></p>
+              </li>
+            <% }) %>
+          </ul>          
+    <% } else { %>
+      <p>No reviews yet. Be the first to share your experience!</p>
+    <% } %>
+  </section>
+</main>

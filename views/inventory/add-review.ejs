@@ -1,0 +1,43 @@
+<section id="review-form">
+  <h1>Review <%= vehicle.inv_make %> <%= vehicle.inv_model %></h1>
+  <%- messages() %>
+  <% if (errors) { %>
+    <ul class="error-list">
+      <% errors.forEach(error => { %>
+        <li><%= error.msg %></li>
+      <% }) %>
+    </ul>
+  <% } %>
+  <form action="/inv/review/<%= inv_id %>" method="POST" onsubmit="return validateReviewForm()">
+    <label for="review_rating">Rating:</label>
+    <div class="star-rating">
+      <% for (let i = 5; i >= 1; i--) { %>
+        <input type="radio" id="star<%= i %>" name="review_rating" value="<%= i %>" <%= review_rating == i ? 'checked' : '' %> required>
+        <label for="star<%= i %>" title="<%= i %> stars">★</label>
+      <% } %>
+    </div>
+  
+    <label for="review_comment">Comment:</label>
+    <textarea id="review_comment" name="review_comment" required><%= review_comment %></textarea>
+  
+    <input type="hidden" name="inv_id" value="<%= inv_id %>">
+    <button type="submit">Submit Review</button>
+  </form>
+  
+  <a href="/inv/detail/<%= inv_id %>">Back to Vehicle</a>  
+</section>
+<script>
+  function validateReviewForm() {
+    const rating = document.getElementById('review_rating').value;
+    const comment = document.getElementById('review_comment').value.trim();
+    if (rating < 1 || rating > 5) {
+      alert('Rating must be between 1 and 5.');
+      return false;
+    }
+    if (!comment) {
+      alert('Comment cannot be empty.');
+      return false;
+    }
+    return true;
+  }
+</script>

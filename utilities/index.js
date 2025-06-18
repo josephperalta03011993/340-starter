@@ -64,21 +64,25 @@ Util.buildClassificationGrid = async function (data) {
  **************************************** */
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
 
-function buildDetailView(vehicle) {
-  return `
+/* **************************************
+ * Build the vehicle detail view HTML with reviews
+ * ************************************ */
+function buildDetailView(vehicle, reviews) {
+  let html = `
     <div id="inv-detail-container">
-    <h2>${vehicle.inv_year} ${vehicle.inv_make} ${vehicle.inv_model}</h2>
-    <div class="detail-container">
-        <img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model}">
+      <h2>${vehicle.inv_year} ${vehicle.inv_make} ${vehicle.inv_model}</h2>
+      <div class="detail-container">
+        <img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model}" loading="lazy">
         <div class="vehicle-details">
-            <h3>${vehicle.inv_make} ${vehicle.inv_model} Details</h3><br>
-            <p><strong>Price: $${Number(vehicle.inv_price).toLocaleString()}</strong></p><br>
-            <p><strong>Description:</strong> ${vehicle.inv_description}</p><br>
-            <p><strong>Color:</strong> ${vehicle.inv_color}</p><br>
-            <p><strong>Mileage:</strong> ${Number(vehicle.inv_miles).toLocaleString()} miles</p>
+          <h3>${vehicle.inv_make} ${vehicle.inv_model} Details</h3><br>
+          <p><strong>Price: $${Number(vehicle.inv_price).toLocaleString()}</strong></p><br>
+          <p><strong>Description:</strong> ${vehicle.inv_description}</p><br>
+          <p><strong>Color:</strong> ${vehicle.inv_color}</p><br>
+          <p><strong>Mileage:</strong> ${Number(vehicle.inv_miles).toLocaleString()} miles</p>
         </div>
-    </div>
+      </div>
   `;
+  return html;
 }
 
 Util.buildClassificationList = async function (classification_id = null) {
