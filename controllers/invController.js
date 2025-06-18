@@ -474,7 +474,7 @@ invCont.addReview = async function (req, res, next) {
 
   if (result) {
     console.log("addReview: Review added successfully, redirecting");
-    req.flash("success", "Review submitted successfully!");
+    //req.flash("success", "Review submitted successfully!");
     return res.redirect(`/inv/detail/${inv_id}`);
   } else {
     console.log("addReview: Failed to add review, rendering form with error");
